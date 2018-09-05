@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <p class="text-left">
+          <%= @post.created_at %>
+        </p>
+        <p class="text-center">
+          <%= @post.title %>
+        </p>
+        <p class="text-center">
+          by
+          <%= @post.user.username %> <%= gravatar_tag @post.user.email, size: 20 %> <%= image_tag @post.user.avatar.url, size: 20 %>
+        </p>
+      </div>
+      <div class="panel-body">
+        <p class="text-center">
+          <%= image_tag @post.avatar.url, size: 300 %>
+        </p>
+        <p>
+          <%= @post.blog_entry.html_safe %>
+        </p>
+      </div>
+      <div class="panel-footer">
+        <p class="text-right">
+            <%= link_to 'Edit', edit_post_path(@post) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="comments">
+
+    <%= render 'comments/form', comment: @comment %>
+
+    <% @post.comments.each do |comment| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="well">
+          <p>
+            <%= comment.created_at %>
+    	       <%= comment.user.username %>  <%= gravatar_tag comment.user.email, size: 20 %> <%= image_tag comment.user.avatar.url, size: 20 %><br />
+    	      <%= comment.comment_entry %>
+    	    </p>
+        </div>
+      </div>
+    </div>
+    <% end %>
+</div>
+
+<p>
+    <%= link_to 'Back', posts_path %>
+</p>
